@@ -1,0 +1,4 @@
+#Instead, you should create an .htaccess file in your root like this:
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L,QSA]

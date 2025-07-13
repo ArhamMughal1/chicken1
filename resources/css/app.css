@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+bdi{
+    @apply font-nastaliq;
+}
+[type='text'], input:where(:not([type])), [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select{
+    @apply p-1 text-xs;
+}
+textarea{
+    @apply block border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-blue-500 dark:focus:border-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 rounded-md shadow-sm;
+}
+select{
+    @apply border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-blue-500 dark:focus:border-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 rounded-md shadow-sm;
+}
+
+input[readonly]{
+    @apply bg-gray-100;
+}
+
+/* Table */
+table{
+    @apply w-full text-sm border border-gray-200;
+}
+table th{
+    @apply text-primary-100 font-semibold border border-gray-200 px-2 py-1;
+}
+table tbody tr td,
+table tfoot tr td,
+table tfoot tr th{
+    @apply text-primary-100 border-r border-b border-gray-200 px-2 py-1;
+}
+table tbody tr td:first-of-type,
+table tfoot tr td:first-of-type,
+table tbody tr th:first-of-type,
+table tfoot tr th:first-of-type{
+    @apply border-t border-l;
+}
+table tfoot{
+    @apply border-l border-b border-r border-2;
+}
+
+[x-cloak] { display: none !important; }
