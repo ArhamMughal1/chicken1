@@ -20,6 +20,9 @@ class Purchase extends Model
         'rate_difference',
         'rate',
         'amount',
+        'paid',
+        'godown',
+        'description'
     ];
 
     public function supplier(){

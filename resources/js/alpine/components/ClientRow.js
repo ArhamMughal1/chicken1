@@ -6,6 +6,7 @@ export default (client, baseRate) => ({
     weight: parseFloat(client?.sale?.weight) || 0,
     amountPaid: parseFloat(client?.sale?.amount_paid) || 0,
     previousArrears: parseFloat(client?.sale?.previous_arrears) || 0,
+    description: client?.sale?.description ?? "",
 
     init() {
         // Register this component with the parent
@@ -46,5 +47,6 @@ export default (client, baseRate) => ({
         this.amount;
         this.arrears;
         this.totalArrears;
+        this.description;
     }
 });

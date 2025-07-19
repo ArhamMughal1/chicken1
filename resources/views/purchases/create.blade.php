@@ -96,6 +96,7 @@
                             :value="old('load_weight',$purchase->load_weight ?? '')"
                             @input="updateCalculations"
                             x-model="loadWeight"
+                            step="0.1"
                             required
                             dir="ltr"
                         />
@@ -113,6 +114,7 @@
                             :value="old('net_weight',$purchase->net_weight ?? '')"
                             @input="updateCalculations"
                             x-model="netWeight"
+                            step="0.1"
                             required
                             dir="ltr"
                         />
@@ -140,7 +142,7 @@
                             id="rate_difference"
                             name="rate_difference"
                             type="number"
-                            step="0.01"
+                            step="0.0001"
                             class="mt-1 block w-full text-right"
                             :value="old('rate_difference',$purchase->rate_difference ?? '')"
                             @input="updateCalculations"
@@ -178,60 +180,58 @@
                         <x-input-error class="mt-2" :messages="$errors->get('amount')"/>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 mt-4">
-                    <div>
-                        <x-input-label class="font-nastaliq leading-nastaliq" for="vehicle_dump-weight" :value="__('گودام ویٹ')"/>
-                        <x-text-input
-                            id="vehicle_number"
-                            name="vehicle_number"
-                            type="text"
-                            class="mt-1 block w-full text-right"
-                            :value="old('vehicle_number',$purchase->vehicle_number ?? '')"
-                            dir="ltr"
-                        />
-                        <x-input-error class="mt-2" :messages="$errors->get('vehicle_number')"/>
+                @if(isset($purchase))
+                    <div class="mx-2">
+                        <div>
+                            <x-input-label class="font-nastaliq leading-nastaliq" for="paid" :value="__('ادا کردہ رقم')"/>
+                            <x-text-input
+                                id="paid"
+                                name="paid"
+                                type="number"
+                                class="mt-1 block w-full text-right"
+                                :value="old('paid',$purchase->paid ?? 0)"
+                                x-model="paid"
+                                dir="ltr"
+                                value="{{ $purchase->paid }}"
+                            />
+                            <x-input-error class="mt-2" :messages="$errors->get('paid')"/>
+                        </div>
                     </div>
-                    <div>
-                        <x-input-label class="font-nastaliq leading-nastaliq" for="vehicle_dump-weight" :value="__('گودام ریٹ')"/>
-                        <x-text-input
-                            id="vehicle_number"
-                            name="vehicle_number"
-                            type="text"
-                            class="mt-1 block w-full text-right"
-                            :value="old('vehicle_number',$purchase->vehicle_number ?? '')"
-                            dir="ltr"
-                        />
-                        <x-input-error class="mt-2" :messages="$errors->get('vehicle_number')"/>
+                @endif
+                @if(isset($purchase))
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 mt-4">
+                        <x-input-label class="font-nastaliq leading-nastaliq" for="textarea" :value="__('‌تفصیل')"/>
+                        <textarea rows="4" name="description">{{ $purchase->description }}</textarea>
                     </div>
-                    <div>
-                        <x-input-label class="font-nastaliq leading-nastaliq" for="vehicle_dump-weight" :value="__('‌رقم')"/>
-                        <x-text-input
-                            id="vehicle_number"
-                            name="vehicle_number"
-                            type="text"
-                            class="mt-1 block w-full text-right"
-                            :value="old('vehicle_number',$purchase->vehicle_number ?? '')"
-                            dir="ltr"
-                        />
-                        <x-input-error class="mt-2" :messages="$errors->get('vehicle_number')"/>
-                    </div>
-                    <div>
-                        <x-input-label class="font-nastaliq leading-nastaliq" for="vehicle_dump-weight" :value="__('‌کل رقم')"/>
-                        <x-text-input
-                            id="vehicle_number"
-                            name="vehicle_number"
-                            type="text"
-                            class="mt-1 block w-full text-right"
-                            :value="old('vehicle_number',$purchase->vehicle_number ?? '')"
-                            dir="ltr"
-                        />
-                        <x-input-error class="mt-2" :messages="$errors->get('vehicle_number')"/>
-                    </div>
-                </div>
+                @endif
                 <div class="text-right mt-4">
                     <x-primary-button type="submit">{{ isset($purchase) ? 'Update' : 'Add' }}</x-primary-button>
                 </div>
             </form>
+            <!-- <script>
+                document.getElementById("godown_select").addEventListener("change", function() {
+                    let selectedOption = this.options[this.selectedIndex];
+                    
+                    let value = selectedOption.value;
+                    let price = selectedOption.getAttribute("amount");
+                    let weight = selectedOption.getAttribute("weight");
+                    
+                    if(value != 0)
+                    {
+                        document.getElementById('godown_weight').value = weight;
+                        document.getElementById('godown_rate').value = price;
+                        document.getElementById('godown_rate_kg').value = parseFloat(price) * parseFloat(weight);
+                        var amount = document.getElementById('amount').value
+                        document.getElementById('godown_rate_total').value = (parseFloat(price) * parseFloat(weight)) + parseFloat(amount);
+
+                    }else{
+                        document.getElementById('godown_weight').value = "";
+                        document.getElementById('godown_rate').value = "";
+                        document.getElementById('godown_rate_kg').value = "";
+                        document.getElementById('godown_rate_total').value = "";
+                    }
+                });
+            </script> -->
         </div>
     </div>
 </x-app-layout>

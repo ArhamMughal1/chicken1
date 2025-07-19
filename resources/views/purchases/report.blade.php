@@ -161,5 +161,70 @@
             </div>
         </div>
     </div>
-</body>>
+
+    <div>
+        <h1 style="font-weight: bold">Client Sales
+            <span>(دکاندارون کاکھاتہ)</span>
+        </h1>
+        <div>
+            <span><b>Report Date:</b> {{ $currentDate->format('l, F j, Y') }}</span>
+        </div>
+
+        <ul dir="rtl" style="list-style: none; text-align: right; margin: 0 0 20px; padding: 0">
+            <li>
+                <bdi><b>منڈی ریٹ</b></bdi>
+                : {{$today_rate->mandi_rate ?? 0}}</li>
+            <li>
+                <bdi><b>سلیٹ ریٹ</b></bdi>
+                : {{$today_rate->slate_rate ?? 0}}</li>
+        </ul>
+
+        <table dir="rtl" style="text-align: right; width: 100%">
+            <thead>
+            <tr>
+                <th style="text-align: right">نام دکاندار</th>
+                <th>لیس</th>
+                <th>ریٹ</th>
+                <th>وزن</th>
+                <th>مال‌رقم</th>
+                <th>وصول‌رقم</th>
+                <th>بقایاجات</th>
+                <th>سابقہ بقایا</th>
+                <th>ٹوٹل‌بقایا</th>
+                <th>کیش/کریڈٹ</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($salesClient as $item)
+                <tr>
+                    <td>{{$item->client->full_name}}</td>
+                    <td dir="ltr">{{$item->rate_difference}}</td>
+                    <td dir="ltr">{{$item->rate}}</td>
+                    <td dir="ltr">{{$item->weight}}</td>
+                    <td dir="ltr">{{number_format($item->amount)}}</td>
+                    <td dir="ltr">{{number_format($item->amount_paid)}}</td>
+                    <td dir="ltr">{{number_format($item->arrears)}}</td>
+                    <td dir="ltr">{{number_format($item->previous_arrears)}}</td>
+                    <td dir="ltr">{{number_format($item->total_arrears)}}</td>
+                    <td dir="ltr">{{$item->sale_type}}</td>
+                </tr>
+            @endforeach
+            </tbody>
+            <tfoot>
+            <tr>
+                <th style="text-align: right">Total</th>
+                <td></td>
+                <td></td>
+                <td dir="ltr">{{ number_format($totals['weight_client'], 2) }}</td>
+                <td dir="ltr">{{ number_format($totals['amount_client'], 2) }}</td>
+                <td dir="ltr">{{ number_format($totals['amount_paid_client']) }}</td>
+                <td dir="ltr">{{ number_format($totals['arrears_client']) }}</td>
+                <td dir="ltr">{{ number_format($totals['previous_arrears_client']) }}</td>
+                <td dir="ltr">{{ number_format($totals['total_arrears_client']) }}</td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
 </html>

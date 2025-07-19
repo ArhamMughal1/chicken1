@@ -115,19 +115,33 @@
                         <i class="fa-solid fa-scale-unbalanced"></i>
                     </a>
                 </li>
-
                 <li class="w-full">
-                    <a href="{{ route('cash-account.index') }}"
+                    <a href="{{ route('godown-weights.index') }}"
                        class="w-full text-base font-medium flex items-center justify-between py-2 px-4 bg-gray-600 text-white rounded-md">
-                        <span class="menu-items-text">{{ __('Cash Account') }}</span>
-                        <i class="fa-solid fa-scale-unbalanced"></i>
+                        <span class="menu-items-text">{{ __('Godown Weights') }}</span>
+                        <i class="fa-solid fa-weight-scale"></i>
                     </a>
                 </li>
                 <li class="w-full pl-4">
-                    <a href="{{ route('cash-account.create') }}"
+                    <a href="{{ route('godown-weights.create') }}"
+                       class="w-full text-base font-medium flex items-center justify-between py-2 px-4 bg-gray-600 text-white rounded-md">
+                        <span class="menu-items-text">Add Weight Record</span>
+                        <i class="fa-solid fa-weight-scale"></i>
+                    </a>
+                </li>
+
+                <li class="w-full">
+                    <a href="{{ route('cash-accounts.index') }}"
+                       class="w-full text-base font-medium flex items-center justify-between py-2 px-4 bg-gray-600 text-white rounded-md">
+                        <span class="menu-items-text">{{ __('Cash Account') }}</span>
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                    </a>
+                </li>
+                <li class="w-full pl-4">
+                    <a href="{{ route('cash-accounts.create') }}"
                        class="w-full text-base font-medium flex items-center justify-between py-2 px-4 bg-gray-600 text-white rounded-md">
                         <span class="menu-items-text">Add Cash in Hand</span>
-                        <i class="fa-solid fa-scale-unbalanced"></i>
+                        <i class="fa-solid fa-hand-holding-usd"></i>
                     </a>
                 </li>
 

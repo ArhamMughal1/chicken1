@@ -9,12 +9,14 @@ class CashAccount extends Model
 {
     use HasFactory;
 
-    protected $table = 'cash_accounts';
-
     protected $fillable = [
         'amount',
-        'type',
-        'notes',
+        'date',
+        'details',
+    ];
+
+    protected $casts = [
+        'date' => 'date',
+        'amount' => 'decimal:2',
     ];
 }
-

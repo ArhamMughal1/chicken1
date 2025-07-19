@@ -50,5 +50,12 @@
                 {{$today_remaining_weight}}
             </div>
         </div>
+
+        <div class="flex flex-col bg-white rounded-xl p-4 text-center">
+            <h4 class="text-2xl text-black font-bold mb-3">Today Short Weight</h4>
+            <div class="font-bold text-6xl">
+                {{$today_shortweight_purchase}}
+            </div>
+        </div>
     </div>
 </x-app-layout>

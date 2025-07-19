@@ -42,6 +42,8 @@
                         <th scope="col">لیس</th>
                         <th scope="col">قیمت</th>
                         <th scope="col">رقم</th>
+                        <th scope="col">رقم گودام</th>
+                        <th scope="col">ادا کردہ رقم</th>
                         <th scope="col" class="text-left">Actions</th>
                     </tr>
                     </thead>
@@ -57,6 +59,8 @@
                             <td>{{$item->rate_difference}}</td>
                             <td>{{$item->rate}}</td>
                             <td>{{number_format($item->amount)}}</td>
+                            <td>{{number_format($item->amount - ($item->net_weight * $item->rate))}}</td>
+                            <td>{{number_format($item->paid)}}</td>
                             <td>
                                 <div class="text-sm text-gray-700 dark:text-gray-200 flex justify-end gap-4">
                                     <a href="{{ route('purchase.edit', $item->id) }}">
@@ -76,13 +80,47 @@
                         <th>Total</th>
                         <td></td>
                         <td></td>
-                        <td>{{number_format($totals['load_weight'],2)}}</td>
-                        <td>{{number_format($totals['net_weight'],2)}}</td>
-                        <td>{{number_format($totals['short_weight'],2)}}</td>
+                        <td>{{number_format($totals['supp_load_weight'],2)}}</td>
+                        <td>{{number_format($totals['supp_net_weight'],2)}}</td>
+                        <td>{{number_format($totals['supp_short_weight'],2)}}</td>
                         <td></td>
                         <td></td>
-                        <td>{{number_format($totals['amount'],2)}}</td>
+                        <td>{{number_format($totals['supp_amount'],2)}}</td>
                         <td></td>
+                        <td>{{number_format($totals['supp_paid'],2)}}</td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="bg-white rounded p-4 mt-4" dir="rtl">
+            <h4 class="text-primary-100 text-xl font-bold mb-2">
+                <bdi>وزن کی تفصیلات</bdi>
+            </h4>
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-right">
+                    <tbody>
+                    <tr>
+                        <th scope="col">
+                            <bdi>ٹوٹل ویٹ خرید</bdi>
+                        </th>
+                        <td>{{number_format($totals['supp_net_weight'],2)}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">
+                            <bdi>ٹوٹل شارٹ ویٹ</bdi>
+                        </th>
+                        <td>{{number_format($totals['supp_short_weight'],2)}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>
+                            <bdi>ٹوٹل ویٹ</bdi>
+                        </th>
+                        <td>{{number_format($totals['supp_net_weight'] +  $totals['supp_short_weight'],2)}}</td>
                     </tr>
                     </tfoot>
                 </table>
@@ -104,17 +142,29 @@
                     </tr>
                     <tr>
                         <th scope="col">
+                            <bdi>کریڈیٹ پر ویٹ سیل</bdi>
+                        </th>
+                        <td>{{number_format($totals['credit_weight_sale'],2)}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">
+                            <bdi>کیش پر ویٹ سیل</bdi>
+                        </th>
+                        <td>{{number_format($totals['cash_weight_sale'],2)}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">
                             <bdi>ٹوٹل شارٹ ویٹ</bdi>
                         </th>
-                        <td>{{number_format($totals['short_weight'],2)}}</td>
+                        <td>{{number_format($totals['net_weight'] - ($totals['credit_weight_sale'] + $totals['cash_weight_sale'] +  $totals['short_weight']),2)}}</td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
                         <th>
-                            <bdi>ٹوٹل ویٹ</bdi>
+                            <bdi>بقایا ویٹ</bdi>
                         </th>
-                        <td>{{number_format($totals['net_weight'] +  $totals['short_weight'],2)}}</td>
+                        <td>{{number_format($totals['short_weight'],2)}}</td>
                     </tr>
                     </tfoot>
                 </table>

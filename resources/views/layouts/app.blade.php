@@ -73,6 +73,5 @@
                 }).showToast();
             </script>
         @endif
-        <script>
     </body>
 </html>

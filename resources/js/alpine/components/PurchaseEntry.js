@@ -98,6 +98,6 @@ export default (baseRate, loadWeight, netWeight) => ({
         this.shortWeight = parseFloat(this.loadWeight) - parseFloat(this.netWeight);
 
         this.rate = this.baseRate - (parseFloat(this.rateDifference) || 0);
-        this.amount = this.netWeight * this.rate;
+        this.amount = ((this.netWeight * this.rate) % 1) >= 0.5 ? Math.ceil((this.netWeight * this.rate)) : Math.floor((this.netWeight * this.rate));
     }
 });

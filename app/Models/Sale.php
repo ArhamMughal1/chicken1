@@ -21,6 +21,7 @@ class Sale extends Model
         'previous_arrears',
         'total_arrears',
         'sale_type',
+        'description'
     ];
 
     protected $casts = [

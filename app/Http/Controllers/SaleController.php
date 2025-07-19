@@ -21,7 +21,7 @@ class SaleController extends Controller
 
         $purchases = Purchase::whereDate('purchase_date','=',$currentDate)->get();
 
-        $shortages = WeightShortage::whereDate('date','=',$currentDate)->get();
+        $shortages = WeightShortage::where('date', $currentDate)->get();
 
         // Calculate totals
         $totals = [
@@ -63,7 +63,6 @@ class SaleController extends Controller
             ];
         });
         $clientsJson = $clientsData->toJson();
-
         $purchaseWeight = Purchase::whereDate('purchase_date', request('date', now()->format('Y-m-d')))
             ->sum('net_weight');
 
@@ -77,27 +76,43 @@ class SaleController extends Controller
 
     public function store(request $request){
         $validated = $request->validate([
-            'sale_date' => 'required|date|unique:sales,sale_date',
+            'sale_date' => 'required|date',
             'clients' => 'required|array',
             'clients.*.client_id' => 'required|exists:clients,id',
-            'clients.*.rate_difference' => 'required|numeric',
-            'clients.*.rate' => 'required|numeric',
             'clients.*.weight' => 'required|numeric',
             'clients.*.amount' => 'required|numeric',
             'clients.*.amount_paid' => 'required|numeric',
             'clients.*.arrears' => 'required|numeric',
             'clients.*.previous_arrears' => 'required|numeric',
             'clients.*.total_arrears' => 'required|numeric',
+            'clients.*.description' => 'nullable|string'
         ]);
-
+        $totalSale = 0;
         foreach ($validated['clients'] as $clientData) {
-            $sale = new Sale;
-            $sale->fill($clientData);
-            $sale->sale_date = $validated['sale_date'];
-            $sale->save();
+            $totalSale += $clientData['weight'];
+        }
+        $purchase = Purchase::where('purchase_date', $validated['sale_date'])->sum('net_weight');
+        if($totalSale > $purchase){
+            return redirect()->back()->with('error', "Max Net Weight Reached.");
+        }
+        foreach ($validated['clients'] as $clientData) {
+            if(Sale::where('sale_date', $validated['sale_date'])->where('client_id', $clientData)->exists()){
+                $totalSale += $clientData['weight'];
+                $clientData['sale_date'] = $validated['sale_date'];
+                Sale::where('sale_date', $validated['sale_date'])->where('client_id', $clientData)
+                ->update($clientData);
+                $client = Client::find($clientData['client_id']);
+                $client->update(['balance' => $clientData['total_arrears']]);
+            }else{
+                $sale = new Sale;
+                $totalSale += $clientData['weight'];
+                $sale->fill($clientData);
+                $sale->sale_date = $validated['sale_date'];
+                $sale->save();
 
-            $client = Client::find($clientData['client_id']);
-            $client->update(['balance' => $clientData['total_arrears']]);
+                $client = Client::find($clientData['client_id']);
+                $client->update(['balance' => $clientData['total_arrears']]);
+            }
         }
 
         session()->flash('success','Record Added Successfully');
@@ -145,6 +160,7 @@ class SaleController extends Controller
                     'weight' => $sale->weight,
                     'amount_paid' => $sale->amount_paid,
                     'previous_arrears' => $sale->previous_arrears,
+                    'description' => $sale->description
                 ] : null
             ];
         });

@@ -43,7 +43,7 @@
                             name="sale_date"
                             type="date"
                             class="mt-1 block w-full font-nastaliq !leading-nastaliq"
-                            :value="old('sale_date',$sale->sale_date ?? \Carbon\Carbon::now()->toDateString())"
+                            :value="$sale->sale_date->toDateString() ?? \Carbon\Carbon::now()->toDateString()"
                             required
                             readonly
                         />

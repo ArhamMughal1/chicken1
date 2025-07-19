@@ -14,7 +14,7 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\WeightShortageController;
 use App\Http\Controllers\SupplierPurchaseController;
 use App\Http\Controllers\CashAccountController;
-
+use App\Http\Controllers\GodownWeightController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,8 +98,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('weight-shortages', WeightShortageController::class);
 
+    Route::resource('godown-weights', GodownWeightController::class);
 
-    Route::resource('cash-account', CashAccountController::class);
+    Route::resource('cash-accounts', CashAccountController::class);
+    Route::get('/cash-accounts/report/{date}', [CashAccountController::class, 'report'])->name('cashAccount.report');
 
 
 });
