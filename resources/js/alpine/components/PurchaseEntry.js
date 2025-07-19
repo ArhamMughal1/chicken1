@@ -2,7 +2,7 @@ export default (baseRate, loadWeight, netWeight) => ({
     selectedDate: new URLSearchParams(window.location.search).get('date') || document.getElementById('purchase_date')?.value || new Date().toISOString().slice(0, 10),
     selectedSupplier: new URLSearchParams(window.location.search).get('supplier') || document.getElementById('supplier_id')?.value || '',
     baseRate: parseFloat(baseRate) || 0,
-    rateDifference: 0,
+    rateDifference: document.getElementById('rate_difference')?.value,
     loadWeight: loadWeight || 0,
     netWeight: netWeight || 0,
     shortWeight: 0,

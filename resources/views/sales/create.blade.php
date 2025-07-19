@@ -66,8 +66,10 @@
                     <x-input-error class="mt-2" :messages="$errors->get('sale_date')" />
                 </div>
 
-                <div class="grid grid-cols-1 gap-1 md:grid-cols-9 font-nastaliq">
+                <div class="grid grid-cols-1 gap-1 md:grid-cols-10 font-nastaliq">
                     <x-input-label for="name" :value="__('نام دکاندار')" />
+                    <x-input-label for="rate_difference" :value="__('لیس')"/>
+                    <x-input-label for="rate" :value="__('ریٹ')"/>
                     <x-input-label for="weight" :value="__('وزن')" />
                     <x-input-label for="amount" :value="__('مال‌رقم')" />
                     <x-input-label for="amount_paid" :value="__('وصول‌رقم')" />
@@ -78,7 +80,7 @@
                 </div>
 
                 <template x-for="(client, index) in filteredClients" :key="client.id">
-                    <div class="grid grid-cols-1 gap-1 md:grid-cols-9 mt-2"
+                    <div class="grid grid-cols-1 gap-1 md:grid-cols-10 mt-2"
                         x-data="clientRow(client, {{ $today_rate->slate_rate ?? 0 }})">
                         <div>
                             <input type="hidden" x-bind:name="'clients[' + index + '][client_id]'"
@@ -86,6 +88,29 @@
                             <x-text-input type="text" class="mt-1 block w-full font-nastaliq !leading-nastaliq"
                                 x-bind:value="client.full_name" readonly />
                             <input type="hidden" x-bind:value="client.category" x-text="client.category">
+                        </div>
+                        <div>
+                            <x-text-input
+                                dir="ltr"
+                                x-bind:name="'clients[' + index + '][rate_difference]'"
+                                type="number"
+                                step="0.01"
+                                class="mt-1 block w-full text-right !leading-nastaliq"
+                                x-model="clientDiscount"
+                                @input="updateCalculations"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <x-text-input
+                                dir="ltr"
+                                x-bind:name="'clients[' + index + '][rate]'"
+                                type="number"
+                                step="0.01"
+                                class="mt-1 block w-full text-right !leading-nastaliq"
+                                x-model="rate"
+                                readonly
+                            />
                         </div>
                         <div>
                             <x-text-input dir="ltr" x-bind:name="'clients[' + index + '][weight]'" type="number"
@@ -124,10 +149,18 @@
                 </template>
                 {{-- Custom Work Here --}}
 
-                <div class="grid grid-cols-1 gap-1 md:grid-cols-9 mt-2"
+                <div class="grid grid-cols-1 gap-1 md:grid-cols-10 mt-2"
                     x-data="clientRow(client, {{ $today_rate->slate_rate ?? 0 }})">
                     <div>
                         <x-text-input value="Total" type="text"
+                            class="mt-1 block w-full font-nastaliq !leading-nastaliq" readonly />
+                    </div>
+                    <div>
+                        <x-text-input value="" type="text"
+                            class="mt-1 block w-full font-nastaliq !leading-nastaliq" readonly />
+                    </div>
+                    <div>
+                        <x-text-input value="" type="text"
                             class="mt-1 block w-full font-nastaliq !leading-nastaliq" readonly />
                     </div>
                     <div>
@@ -154,6 +187,10 @@
                         <x-text-input dir="ltr" type="number" id="sixthTotal"
                             class="mt-1 block w-full text-right !leading-nastaliq" readonly />
                     </div>
+                    <div>
+                        <x-text-input value="" type="text"
+                            class="mt-1 block w-full font-nastaliq !leading-nastaliq" readonly />
+                    </div>
                 </div>
 
 
@@ -172,7 +209,7 @@
             let total = 0;
 
             // Get all containers
-            const containers = document.querySelectorAll('.grid.grid-cols-1.gap-1.md\\:grid-cols-9.mt-2');
+            const containers = document.querySelectorAll('.grid.grid-cols-1.gap-1.md\\:grid-cols-10.mt-2');
 
             containers.forEach((container, index) => {
                 // Skip the last container
@@ -191,12 +228,12 @@
             return parseFloat(total.toFixed(2));
         }
         document.addEventListener('input', function () {
-            document.getElementById('firstTotal').value = calculateSecondDivSum(2);
-            document.getElementById('secondTotal').value = calculateSecondDivSum(3);
-            document.getElementById('thirdTotal').value = calculateSecondDivSum(4);
-            document.getElementById('fourthTotal').value = calculateSecondDivSum(5);
-            document.getElementById('fifthTotal').value = calculateSecondDivSum(6);
-            document.getElementById('sixthTotal').value = calculateSecondDivSum(7);
+            document.getElementById('firstTotal').value = calculateSecondDivSum(4);
+            document.getElementById('secondTotal').value = calculateSecondDivSum(5);
+            document.getElementById('thirdTotal').value = calculateSecondDivSum(6);
+            document.getElementById('fourthTotal').value = calculateSecondDivSum(7);
+            document.getElementById('fifthTotal').value = calculateSecondDivSum(8);
+            document.getElementById('sixthTotal').value = calculateSecondDivSum(9);
         });
     </script>
 </x-app-layout>

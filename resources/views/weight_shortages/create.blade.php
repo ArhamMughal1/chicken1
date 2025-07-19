@@ -10,7 +10,7 @@
                         Driver
                     </label>
                     <select name="driver_id" id="driver_id" required
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-white leading-tight focus:outline-none focus:shadow-outline">
                         <option value="">Select Driver</option>
                         @foreach($drivers as $driver)
                             <option value="{{ $driver->id }}" {{ old('driver_id') == $driver->id ? 'selected' : '' }}>
@@ -54,18 +54,18 @@
                     Details
                 </label>
                 <textarea name="details" id="details" rows="4"
-                          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
                           placeholder="Enter details about the shortage">{{ old('details') }}</textarea>
                 @error('details')
                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="flex items-center justify-between">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <div class="flex items-center">
+                <button type="submit" class=" mr-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     Save Record
                 </button>
-                <a href="{{ route('weight-shortages.index') }}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                <a href="{{ route('weight-shortages.index') }}" class="inline-block align-baseline font-bold text-sm text-gray-700 hover:text-black">
                     Cancel
                 </a>
             </div>

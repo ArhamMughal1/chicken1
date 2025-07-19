@@ -159,7 +159,7 @@
                             type="number"
                             step="0.01"
                             class="mt-1 block w-full text-right"
-                            :value="old('rate',$purchase->rate ?? '')"
+                            value="{{ $today_rate->slate_rate }}"
                             x-model="rate"
                             readonly
                             dir="ltr"
@@ -208,30 +208,18 @@
                     <x-primary-button type="submit">{{ isset($purchase) ? 'Update' : 'Add' }}</x-primary-button>
                 </div>
             </form>
-            <!-- <script>
-                document.getElementById("godown_select").addEventListener("change", function() {
-                    let selectedOption = this.options[this.selectedIndex];
-                    
-                    let value = selectedOption.value;
-                    let price = selectedOption.getAttribute("amount");
-                    let weight = selectedOption.getAttribute("weight");
-                    
-                    if(value != 0)
-                    {
-                        document.getElementById('godown_weight').value = weight;
-                        document.getElementById('godown_rate').value = price;
-                        document.getElementById('godown_rate_kg').value = parseFloat(price) * parseFloat(weight);
-                        var amount = document.getElementById('amount').value
-                        document.getElementById('godown_rate_total').value = (parseFloat(price) * parseFloat(weight)) + parseFloat(amount);
-
-                    }else{
-                        document.getElementById('godown_weight').value = "";
-                        document.getElementById('godown_rate').value = "";
-                        document.getElementById('godown_rate_kg').value = "";
-                        document.getElementById('godown_rate_total').value = "";
+            <script>
+                const defaultRate = document.getElementById('rate').value;
+                document.getElementById('supplier_id').addEventListener('change', function () {
+                    const rateInput = document.getElementById('rate');
+                    if (this.value === '9') {
+                        rateInput.removeAttribute('readonly');
+                    } else {
+                        rateInput.setAttribute('readonly', true);
+                        rateInput.value = parseFloat(defaultRate)
                     }
                 });
-            </script> -->
+            </script>
         </div>
     </div>
 </x-app-layout>

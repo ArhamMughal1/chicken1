@@ -1,43 +1,43 @@
 <x-app-layout>
 
-    <div class="max-w-2xl mx-auto">
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex justify-between items-start mb-6">
-                <h2 class="text-xl font-semibold">Cash Account Details</h2>
-                <div class="flex space-x-2">
-                    <a href="{{ route('cash-accounts.edit', $cashAccount) }}" class="text-green-600 hover:text-green-900">Edit</a>
-                    <form action="{{ route('cash-accounts.destroy', $cashAccount) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this account?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:text-red-900 ml-2">Delete</button>
-                    </form>
-                </div>
-            </div>
+{{--    <div class="max-w-2xl mx-auto">--}}
+{{--        <div class="bg-white rounded-lg shadow p-6">--}}
+{{--            <div class="flex justify-between items-start mb-6">--}}
+{{--                <h2 class="text-xl font-semibold">Cash Account Details</h2>--}}
+{{--                <div class="flex space-x-2">--}}
+{{--                    <a href="{{ route('cash-accounts.edit', $cashAccount) }}" class="text-green-600 hover:text-green-900">Edit</a>--}}
+{{--                    <form action="{{ route('cash-accounts.destroy', $cashAccount) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this account?')">--}}
+{{--                        @csrf--}}
+{{--                        @method('DELETE')--}}
+{{--                        <button type="submit" class="text-red-600 hover:text-red-900 ml-2">Delete</button>--}}
+{{--                    </form>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-            <div class="space-y-4">
-                <div>
-                    <h3 class="text-sm font-medium text-gray-500">Date</h3>
-                    <p class="mt-1 text-sm text-gray-900">{{ $cashAccount->date->format('Y-m-d') }}</p>
-                </div>
+{{--            <div class="space-y-4">--}}
+{{--                <div>--}}
+{{--                    <h3 class="text-sm font-medium text-gray-500">Date</h3>--}}
+{{--                    <p class="mt-1 text-sm text-gray-900">{{ $cashAccount->date->format('Y-m-d') }}</p>--}}
+{{--                </div>--}}
 
-                <div>
-                    <h3 class="text-sm font-medium text-gray-500">Amount</h3>
-                    <p class="mt-1 text-sm text-gray-900">{{ number_format($cashAccount->amount, 2) }}</p>
-                </div>
+{{--                <div>--}}
+{{--                    <h3 class="text-sm font-medium text-gray-500">Amount</h3>--}}
+{{--                    <p class="mt-1 text-sm text-gray-900">{{ number_format($cashAccount->amount, 2) }}</p>--}}
+{{--                </div>--}}
 
-                @if($cashAccount->details)
-                    <div>
-                        <h3 class="text-sm font-medium text-gray-500">Details</h3>
-                        <p class="mt-1 text-sm text-gray-900 whitespace-pre-line">{{ $cashAccount->details }}</p>
-                    </div>
-                @endif
+{{--                @if($cashAccount->details)--}}
+{{--                    <div>--}}
+{{--                        <h3 class="text-sm font-medium text-gray-500">Details</h3>--}}
+{{--                        <p class="mt-1 text-sm text-gray-900 whitespace-pre-line">{{ $cashAccount->details }}</p>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
 
-                <div class="pt-4 border-t border-gray-200">
-                    <a href="{{ route('cash-accounts.index') }}" class="text-blue-600 hover:text-blue-900">Back to list</a>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--                <div class="pt-4 border-t border-gray-200">--}}
+{{--                    <a href="{{ route('cash-accounts.index') }}" class="text-blue-600 hover:text-blue-900">Back to list</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
     <div class="container mx-auto px-6 py-8">
 
@@ -70,8 +70,14 @@
                         <span class="text-gray-600">Today Expense</span>
                         <span class="text-red-500 font-bold">Rs {{$expense ? number_format($expense, 2) : 0}}</span>
                     </div>
+                    <hr class="pt-3">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-gray-600">Net Profit Today</span>
+                        <span class="text-green-600 font-bold">Rs {{ number_format($salesPaid - $purchasePaid - $expense, 2) }}</span>
+                    </div>
+
                     <div class="flex justify-between items-center border-t pt-3 my-3">
-                        <span class="text-gray-800 font-semibold">Net Balance</span>
+                        <span class="text-gray-800 font-semibold">Total Balance Available</span>
                         <span class="text-blue-600 text-lg font-bold">Rs {{ number_format(($salesPaid + $cashAccount->amount) - $purchasePaid - $expense, 2)}}</span>
                     </div>
                     <hr class="pb-2 border-black">

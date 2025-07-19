@@ -144,18 +144,36 @@
                             <td>{{$item->details}}</td>
                             <td>
                                 <div class="text-sm text-gray-700 dark:text-gray-200 flex justify-end gap-4">
-                                    <a href="{{ route('clients.sales', $item->id) }}" class="text-blue-600 hover:text-blue-900">
-                                        View Sales
+
+                                    {{-- View Sales --}}
+                                    <a href="{{ route('clients.sales', $item->id) }}"
+                                       class="flex items-center gap-1 text-blue-600 hover:text-blue-900"
+                                       title="View Sales">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                        <span>Sales</span>
                                     </a>
-                                    <a href="{{ route('client.edit', $item->id) }}">
+
+                                    {{-- Edit --}}
+                                    <a href="{{ route('client.edit', $item->id) }}"
+                                       class="flex items-center gap-1 text-green-600 hover:text-green-800"
+                                       title="Edit">
                                         <i class="fa-regular fa-pen-to-square"></i>
+                                        <span>Edit</span>
                                     </a>
+
+                                    {{-- Delete --}}
                                     <a href="{{ route('client.destroy', $item->id) }}"
-                                       onclick="return confirm('Are you sure?')">
+                                       onclick="return confirm('Are you sure?')"
+                                       class="flex items-center gap-1 text-red-600 hover:text-red-800"
+                                       title="Delete">
                                         <i class="fa-solid fa-trash-can"></i>
+                                        <span>Delete</span>
                                     </a>
+
                                 </div>
                             </td>
+
+
                         </tr>
                     @endforeach
                     </tbody>

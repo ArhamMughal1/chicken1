@@ -131,19 +131,24 @@
                             </td>
                             <td>{{$item->details}}</td>
                             <td>
-                                <div class="text-sm text-gray-700 dark:text-gray-200 flex justify-end gap-4">
-                                    <a href="{{ route('suppliers.purchases', $item->id) }}" class="text-blue-600 hover:text-blue-900">
-                                        View Purchases
+                                <div class="text-sm text-gray-700 dark:text-gray-200 flex justify-end gap-4 items-center">
+                                    <a href="{{ route('suppliers.purchases', $item->id) }}" class="text-blue-600 hover:text-blue-900 flex items-center gap-1">
+                                        <i class="fa-solid fa-eye"></i>
+                                        <span>View Purchases</span>
                                     </a>
-                                    <a href="{{ route('supplier.edit', $item->id) }}">
+                                    <a href="{{ route('supplier.edit', $item->id) }}" class="text-green-600 hover:text-green-900 flex items-center gap-1">
                                         <i class="fa-regular fa-pen-to-square"></i>
+                                        <span>Edit</span>
                                     </a>
                                     <a href="{{ route('supplier.destroy', $item->id) }}"
-                                       onclick="return confirm('Are you sure?')">
+                                       onclick="return confirm('Are you sure?')"
+                                       class="text-red-600 hover:text-red-900 flex items-center gap-1">
                                         <i class="fa-solid fa-trash-can"></i>
+                                        <span>Delete</span>
                                     </a>
                                 </div>
                             </td>
+
                         </tr>
                     @endforeach
                     </tbody>

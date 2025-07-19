@@ -44,6 +44,7 @@
                         <th scope="col">رقم</th>
                         <th scope="col">رقم گودام</th>
                         <th scope="col">ادا کردہ رقم</th>
+                        <th scope="col">تفصیل</th>
                         <th scope="col" class="text-left">Actions</th>
                     </tr>
                     </thead>
@@ -61,17 +62,19 @@
                             <td>{{number_format($item->amount)}}</td>
                             <td>{{number_format($item->amount - ($item->net_weight * $item->rate))}}</td>
                             <td>{{number_format($item->paid)}}</td>
+                            <td>{{$item->description}}</td>
                             <td>
                                 <div class="text-sm text-gray-700 dark:text-gray-200 flex justify-end gap-4">
                                     <a href="{{ route('purchase.edit', $item->id) }}">
-                                        <i class="fa-regular fa-pen-to-square"></i>
+                                        <i class="fa-regular fa-pen-to-square text-green-600"></i>
                                     </a>
                                     <a href="{{ route('purchase.destroy', $item->id) }}"
                                        onclick="return confirm('Are you sure?')">
-                                        <i class="fa-solid fa-trash-can"></i>
+                                        <i class="fa-solid fa-trash-can text-red-600"></i>
                                     </a>
                                 </div>
                             </td>
+
                         </tr>
                     @endforeach
                     </tbody>

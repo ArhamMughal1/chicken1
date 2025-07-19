@@ -35,21 +35,55 @@
                         <td class="py-3 px-6 text-left">{{ $shortage->driver->name }}</td>
                         <td class="py-3 px-6 text-left">{{ number_format($shortage->shortage_amount, 2) }} kg</td>
                         <td class="py-3 px-6 text-center">
-                            <div class="flex item-center justify-center">
-                                <a href="{{ route('weight-shortages.show', $shortage->id) }}" class="mr-2 text-blue-500 hover:text-blue-700">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <div class="flex items-center justify-center space-x-3">
+                                <!-- View Button -->
+                                <a href="{{ route('weight-shortages.show', $shortage->id) }}" class="flex items-center text-blue-500 hover:text-blue-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                                         <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
                                     </svg>
+                                    <span>View</span>
                                 </a>
-                                <a href="{{ route('weight-shortages.edit', $shortage->id) }}" class="mr-2 text-green-500 hover:text-green-700">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+
+                                <!-- Edit Button -->
+                                <a href="{{ route('weight-shortages.edit', $shortage->id) }}" class="flex items-center text-green-500 hover:text-green-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                     </svg>
+                                    <span>Edit</span>
                                 </a>
-                                <x-delete-button :action="route('weight-shortages.destroy', $shortage->id)" itemName="this record" />
+
+                                <!-- Delete Button -->
+                                <div x-data="{ open: false }">
+                                    <!-- Trigger Button -->
+                                    <button @click="open = true" class="flex items-center text-red-500 hover:text-red-700">
+                                        <i class="fa-solid fa-trash-can mr-1"></i>
+                                        <span>Delete</span>
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" x-cloak>
+                                        <div class="bg-white p-6 rounded shadow-lg w-80">
+                                            <h2 class="text-lg font-semibold mb-4">Confirm Deletion</h2>
+                                            <p class="mb-6">Are you sure you want to delete this record?</p>
+                                            <div class="flex justify-center space-x-3">
+                                                <button @click="open = false" class="px-4 py-2 text-sm bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+                                                <form action="{{ route('weight-shortages.destroy', $shortage->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="px-4 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </td>
+
                     </tr>
                 @endforeach
                 </tbody>

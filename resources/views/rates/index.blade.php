@@ -111,11 +111,12 @@
                             <td>{{$rate->slate_rate}}</td>
                             <td class="text-right">
                                 @if(\Carbon\Carbon::parse($rate->price_date)->isToday())
-                                    <a href="{{ route('rate.edit', $rate->id) }}" class="text-sm text-gray-700 dark:text-gray-200">
-                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    <a href="{{ route('rate.edit', $rate->id) }}" class="text-sm dark:text-gray-200">
+                                        <i class="fa-regular fa-pen-to-square text-green-600"></i>
                                     </a>
                                 @endif
                             </td>
+
                         </tr>
                     @endforeach
                     </tbody>
