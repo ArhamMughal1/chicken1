@@ -71,9 +71,15 @@
                         <span class="text-red-500 font-bold">Rs {{$expense ? number_format($expense, 2) : 0}}</span>
                     </div>
                     <hr class="pt-3">
+                    @php
+                        $netProfit = ($salesPaid ?? 0) - ($purchasePaid ?? 0);
+                    @endphp
+
                     <div class="flex justify-between items-center mb-3">
                         <span class="text-gray-600">Net Profit Today</span>
-                        <span class="text-green-600 font-bold">Rs {{ number_format($salesPaid - $purchasePaid - $expense, 2) }}</span>
+                        <span class="text-green-600 font-bold">
+        Rs {{ number_format($netProfit, 2) }}
+    </span>
                     </div>
 
                     <div class="flex justify-between items-center border-t pt-3 my-3">

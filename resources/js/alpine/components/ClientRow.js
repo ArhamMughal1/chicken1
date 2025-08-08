@@ -9,16 +9,21 @@ export default (client, baseRate) => ({
     description: client?.sale?.description ?? "",
 
     init() {
-        // Register this component with the parent
-        // this.$parent.registerClientRow(this);
-        this.$dispatch('client-row-mounted', {component: this});
+        this.$dispatch('client-row-mounted', { component: this });
 
-        // Watch for weight changes
+        // Watch for changes in weight
         this.$watch('weight', () => {
             this.updateCalculations();
             this.$dispatch('client-weight-changed');
-            // this.$parent.onClientWeightChanged();
         });
+
+        // Watch for changes in description to auto-parse weight
+        this.$watch('description', () => {
+            this.parseWeightFromDescription();
+        });
+
+        // Trigger initial calculation
+        this.updateCalculations();
     },
 
     get rate() {
@@ -33,20 +38,28 @@ export default (client, baseRate) => ({
         return this.amount - this.amountPaid;
     },
 
-    // get previousArrears() {
-    //     return this.clientBalance;
-    // },
-
     get totalArrears() {
         return Math.round(this.arrears + this.previousArrears);
     },
 
     updateCalculations() {
-        // Trigger getters to update
+        // Trigger Alpine reactivity for dependent fields
         this.rate;
         this.amount;
         this.arrears;
         this.totalArrears;
-        this.description;
+    },
+
+    parseWeightFromDescription() {
+        const parts = this.description
+            .split('+')
+            .map(str => parseFloat(str.trim()))
+            .filter(num => !isNaN(num));
+
+        const sum = parts.reduce((acc, val) => acc + val, 0);
+
+        if (sum > 0) {
+            this.weight = parseFloat(sum.toFixed(3)); // Limit to 3 decimals
+        }
     }
 });

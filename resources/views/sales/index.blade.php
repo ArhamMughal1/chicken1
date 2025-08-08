@@ -35,13 +35,13 @@
                     <tr>
                         <th scope="col">نام دکاندار</th>
                         <th scope="col">ریٹ</th>
+                        <th scope="col">تفصیل</th>
                         <th scope="col">وزن</th>
                         <th scope="col">مال‌رقم</th>
                         <th scope="col">وصول‌رقم</th>
                         <th scope="col">بقایاجات</th>
                         <th scope="col">سابقہ بقایا</th>
                         <th scope="col">ٹوٹل‌بقایا</th>
-                        <th scope="col">تفصیل</th>
                         <th scope="col" class="text-left">Actions</th>
                     </tr>
                     </thead>
@@ -50,13 +50,13 @@
                         <tr>
                             <td class="font-nastaliq leading-nastaliq">{{$item->client->full_name}}</td>
                             <td dir="ltr">{{$item->rate}}</td>
+                            <td dir="ltr">{{$item->description}}</td>
                             <td dir="ltr">{{$item->weight}}</td>
                             <td dir="ltr">{{number_format($item->amount)}}</td>
                             <td dir="ltr">{{number_format($item->amount_paid)}}</td>
                             <td dir="ltr">{{number_format($item->arrears)}}</td>
                             <td dir="ltr">{{number_format($item->previous_arrears)}}</td>
                             <td dir="ltr">{{number_format($item->total_arrears)}}</td>
-                            <td dir="ltr">{{$item->description}}</td>
                             <td>
                                 <div class="text-sm text-gray-700 dark:text-gray-200 flex justify-end gap-4">
                                     <a href="{{ route('sale.edit', $item->id) }}">
@@ -73,13 +73,14 @@
                         <th>Total</th>
                         <td></td>
                         <td dir="ltr">{{ number_format($totals['weight'], 2) }}</td>
+                        <td dir="ltr">{{ number_format($totals['weight'], 2) }}</td>
                         <td dir="ltr">{{ number_format($totals['amount'], 2) }}</td>
                         <td dir="ltr">{{ number_format($totals['amount_paid']) }}</td>
                         <td dir="ltr">{{ number_format($totals['arrears']) }}</td>
                         <td dir="ltr">{{ number_format($totals['previous_arrears']) }}</td>
                         <td dir="ltr">{{ number_format($totals['total_arrears']) }}</td>
                         <td></td>
-                        <td></td>
+{{--                        <td></td>--}}
                     </tr>
                     </tfoot>
                 </table>

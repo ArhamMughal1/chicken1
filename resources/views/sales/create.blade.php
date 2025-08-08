@@ -70,13 +70,14 @@
                     <x-input-label for="name" :value="__('نام دکاندار')" />
                     <x-input-label for="rate_difference" :value="__('لیس')"/>
                     <x-input-label for="rate" :value="__('ریٹ')"/>
+                    <x-input-label for="description" :value="__('تفصیل')" />
+
                     <x-input-label for="weight" :value="__('وزن')" />
                     <x-input-label for="amount" :value="__('مال‌رقم')" />
                     <x-input-label for="amount_paid" :value="__('وصول‌رقم')" />
                     <x-input-label for="arrears" :value="__('بقایاجات')" />
                     <x-input-label for="previous_arrears" :value="__('سابقہ بقایا')" />
                     <x-input-label for="total_arrears" :value="__('ٹوٹل‌بقایا')" />
-                    <x-input-label for="description" :value="__('تفصیل')" />
                 </div>
 
                 <template x-for="(client, index) in filteredClients" :key="client.id">
@@ -113,9 +114,24 @@
                             />
                         </div>
                         <div>
-                            <x-text-input dir="ltr" x-bind:name="'clients[' + index + '][weight]'" type="number"
-                                step="0.001" class="mt-1 block w-full text-right !leading-nastaliq" x-model="weight"
-                                @input="updateCalculations" required />
+                            <x-text-input
+                                dir="ltr"
+                                x-bind:name="'clients[' + index + '][description]'"
+                                type="text"
+                                class="mt-1 block w-full text-right !leading-nastaliq"
+                                x-model="description"
+                                @input="parseWeightFromDescription"
+                            />
+
+                        </div>
+                        <div>
+                            <x-text-input
+                                dir="ltr"
+                                x-bind:name="'clients[' + index + '][weight]'"
+                                type="text"
+                                class="mt-1 block w-full text-right"
+                                x-model="weight"
+                            />
                         </div>
                         <div>
                             <x-text-input dir="ltr" x-bind:name="'clients[' + index + '][amount]'" type="number"
@@ -141,10 +157,6 @@
                                 class="mt-1 block w-full text-right !leading-nastaliq" x-model="totalArrears"
                                 readonly />
                         </div>
-                        <div>
-                            <x-text-input dir="ltr" x-bind:name="'clients[' + index + '][description]'" type="text"
-                                class="mt-1 block w-full text-right !leading-nastaliq"  x-model="description" />
-                        </div>
                     </div>
                 </template>
                 {{-- Custom Work Here --}}
@@ -153,6 +165,10 @@
                     x-data="clientRow(client, {{ $today_rate->slate_rate ?? 0 }})">
                     <div>
                         <x-text-input value="Total" type="text"
+                            class="mt-1 block w-full font-nastaliq !leading-nastaliq" readonly />
+                    </div>
+                    <div>
+                        <x-text-input value="" type="text"
                             class="mt-1 block w-full font-nastaliq !leading-nastaliq" readonly />
                     </div>
                     <div>
@@ -187,10 +203,10 @@
                         <x-text-input dir="ltr" type="number" id="sixthTotal"
                             class="mt-1 block w-full text-right !leading-nastaliq" readonly />
                     </div>
-                    <div>
-                        <x-text-input value="" type="text"
-                            class="mt-1 block w-full font-nastaliq !leading-nastaliq" readonly />
-                    </div>
+{{--                    <div>--}}
+{{--                        <x-text-input value="" type="text"--}}
+{{--                            class="mt-1 block w-full font-nastaliq !leading-nastaliq" readonly />--}}
+{{--                    </div>--}}
                 </div>
 
 
@@ -228,12 +244,12 @@
             return parseFloat(total.toFixed(2));
         }
         document.addEventListener('input', function () {
-            document.getElementById('firstTotal').value = calculateSecondDivSum(4);
-            document.getElementById('secondTotal').value = calculateSecondDivSum(5);
-            document.getElementById('thirdTotal').value = calculateSecondDivSum(6);
-            document.getElementById('fourthTotal').value = calculateSecondDivSum(7);
-            document.getElementById('fifthTotal').value = calculateSecondDivSum(8);
-            document.getElementById('sixthTotal').value = calculateSecondDivSum(9);
+            document.getElementById('firstTotal').value = calculateSecondDivSum(5);
+            document.getElementById('secondTotal').value = calculateSecondDivSum(6);
+            document.getElementById('thirdTotal').value = calculateSecondDivSum(7);
+            document.getElementById('fourthTotal').value = calculateSecondDivSum(8);
+            document.getElementById('fifthTotal').value = calculateSecondDivSum(9);
+            document.getElementById('sixthTotal').value = calculateSecondDivSum(10);
         });
     </script>
 </x-app-layout>

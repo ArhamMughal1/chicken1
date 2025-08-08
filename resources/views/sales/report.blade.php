@@ -79,6 +79,7 @@
                 <th style="text-align: right">نام دکاندار</th>
                 <th>لیس</th>
                 <th>ریٹ</th>
+                <th>تفصیل</th>
                 <th>وزن</th>
                 <th>مال‌رقم</th>
                 <th>وصول‌رقم</th>
@@ -94,6 +95,7 @@
                     <td>{{$item->client->full_name}}</td>
                     <td dir="ltr">{{$item->rate_difference}}</td>
                     <td dir="ltr">{{$item->rate}}</td>
+                    <td dir="ltr">{{$item->description}}</td>
                     <td dir="ltr">{{$item->weight}}</td>
                     <td dir="ltr">{{number_format($item->amount)}}</td>
                     <td dir="ltr">{{number_format($item->amount_paid)}}</td>
@@ -101,6 +103,7 @@
                     <td dir="ltr">{{number_format($item->previous_arrears)}}</td>
                     <td dir="ltr">{{number_format($item->total_arrears)}}</td>
                     <td dir="ltr">{{$item->sale_type}}</td>
+{{--                    <td dir="ltr">{{$item->sale_type}}</td>--}}
                 </tr>
             @endforeach
             </tbody>
@@ -110,11 +113,13 @@
                 <td></td>
                 <td></td>
                 <td dir="ltr">{{ number_format($totals['weight'], 2) }}</td>
+                <td dir="ltr">{{ number_format($totals['weight'], 2) }}</td>
                 <td dir="ltr">{{ number_format($totals['amount'], 2) }}</td>
                 <td dir="ltr">{{ number_format($totals['amount_paid']) }}</td>
                 <td dir="ltr">{{ number_format($totals['arrears']) }}</td>
                 <td dir="ltr">{{ number_format($totals['previous_arrears']) }}</td>
                 <td dir="ltr">{{ number_format($totals['total_arrears']) }}</td>
+{{--                <td dir="ltr">{{ number_format($totals['total_arrears']) }}</td>--}}
                 <td></td>
             </tr>
             </tfoot>
