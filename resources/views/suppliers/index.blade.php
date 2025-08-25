@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="content">
         <div class="mb-3">
-            <h1 class="text-primary-100 text-2xl font-bold">Suppliers
+            <h1 class="text-primary-100 text-2xl font-bold">Suppliers testing
                 <bdi>(فراہم کنندہ)</bdi>
             </h1>
         </div>
